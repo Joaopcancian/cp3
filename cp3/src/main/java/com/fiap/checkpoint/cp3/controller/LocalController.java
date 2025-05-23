@@ -1,7 +1,7 @@
 package com.fiap.checkpoint.cp3.controller;
 
 import com.fiap.checkpoint.cp3.model.Local;
-import com.fiap.checkpoint.cp3.repository.LocalRepository;
+import com.fiap.checkpoint.cp3.service.LocalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,26 +12,25 @@ import java.util.List;
 public class LocalController {
 
     @Autowired
-    private LocalRepository repository;
+    private LocalService service;
 
     @GetMapping
     public List<Local> listar() {
-        return repository.findAll();
+        return service.listar();
     }
 
     @PostMapping
     public Local salvar(@RequestBody Local local) {
-        return repository.save(local);
+        return service.salvar(local);
     }
 
     @PutMapping("/{id}")
     public Local atualizar(@PathVariable Long id, @RequestBody Local local) {
-        local.setId(id);
-        return repository.save(local);
+        return service.atualizar(id, local);
     }
 
     @DeleteMapping("/{id}")
     public void deletar(@PathVariable Long id) {
-        repository.deleteById(id);
+        service.deletar(id);
     }
 }

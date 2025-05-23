@@ -1,7 +1,7 @@
 package com.fiap.checkpoint.cp3.controller;
 
 import com.fiap.checkpoint.cp3.model.Artista;
-import com.fiap.checkpoint.cp3.repository.ArtistaRepository;
+import com.fiap.checkpoint.cp3.service.ArtistaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,26 +12,25 @@ import java.util.List;
 public class ArtistaController {
 
     @Autowired
-    private ArtistaRepository repository;
+    private ArtistaService service;
 
     @GetMapping
     public List<Artista> listar() {
-        return repository.findAll();
+        return service.listar();
     }
 
     @PostMapping
     public Artista salvar(@RequestBody Artista artista) {
-        return repository.save(artista);
+        return service.salvar(artista);
     }
 
     @PutMapping("/{id}")
     public Artista atualizar(@PathVariable Long id, @RequestBody Artista artista) {
-        artista.setId(id);
-        return repository.save(artista);
+        return service.atualizar(id, artista);
     }
 
     @DeleteMapping("/{id}")
     public void deletar(@PathVariable Long id) {
-        repository.deleteById(id);
+        service.deletar(id);
     }
 }

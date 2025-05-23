@@ -17,10 +17,10 @@ public class SwaggerConfig {
     }
 
     @Bean
-    public GroupedOpenApi publicApi() {
+    public GroupedOpenApi allApis() {
         return GroupedOpenApi.builder()
-                .group("checkpoint-public")
-                .pathsToMatch("/eventos/**")
+                .group("todas-as-rotas")
+                .pathsToMatch("/eventos/**", "/artistas/**", "/locais/**", "/secretarias/**")
                 .build();
     }
 }

@@ -1,7 +1,8 @@
 package com.fiap.checkpoint.cp3.controller;
 
+
 import com.fiap.checkpoint.cp3.model.Secretaria;
-import com.fiap.checkpoint.cp3.repository.SecretariaRepository;
+import com.fiap.checkpoint.cp3.service.SecretariaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,26 +13,25 @@ import java.util.List;
 public class SecretariaController {
 
     @Autowired
-    private SecretariaRepository repository;
+    private SecretariaService service;
 
     @GetMapping
     public List<Secretaria> listar() {
-        return repository.findAll();
+        return service.listar();
     }
 
     @PostMapping
     public Secretaria salvar(@RequestBody Secretaria secretaria) {
-        return repository.save(secretaria);
+        return service.salvar(secretaria);
     }
 
     @PutMapping("/{id}")
     public Secretaria atualizar(@PathVariable Long id, @RequestBody Secretaria secretaria) {
-        secretaria.setId(id);
-        return repository.save(secretaria);
+        return service.atualizar(id, secretaria);
     }
 
     @DeleteMapping("/{id}")
     public void deletar(@PathVariable Long id) {
-        repository.deleteById(id);
+        service.deletar(id);
     }
 }
